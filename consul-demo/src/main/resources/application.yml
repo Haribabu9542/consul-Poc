@@ -1,0 +1,37 @@
+  server:
+    port: 9000
+  spring:
+    application:
+      name: user-service
+    cloud:
+      consul:
+        host: localhost
+        port: 8500
+        config:
+          enabled: false
+#          discovery:
+#            instance-id: "${spring.application.name}-${server.port}"
+#            prefer-ip-address: true
+#            health-check-critical-timeout: "1m"
+#            health-check-path: /actuator/health
+#            health-check-interval: 10s
+#            acl-token: "8a0a8090-08df-2cae-cb5d-9b6f91f34933"
+        discovery:
+          # instance-id must not be empty, must start with letter, end wit ha letter or digit, and have as interior characters ony
+          # letter, digits, and hyphen
+          instance-id: id:${random.uuid}
+          # instance-id must not be empty, must start with letter, end wit ha letter or digit, and have as interior characters ony
+          # letter, digits, and hyphen
+#          serviceName: name:${spring.application.name}
+          # Consul needs this for health-check. Used for load-balancing stuff.
+          healthCheckPath: /actuator/health
+          register: true
+          register-health-check: false
+          deregister: true
+#          prefer-ip-address: true
+#          health-check-critical-timeout: "1m"
+#          health-check-path: /actuator/health
+#          health-check-interval: 10s
+#          acl-token: "8a0a8090-08df-2cae-cb5d-9b6f91f34933"
+
+
